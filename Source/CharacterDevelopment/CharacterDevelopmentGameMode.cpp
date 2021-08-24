@@ -7,7 +7,7 @@
 ACharacterDevelopmentGameMode::ACharacterDevelopmentGameMode(){
 	// set default pawn class to our Blueprinted character
 	// (Game) = Content Folder 
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Character/Blueprints/Blueprint_Character"));
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Character_Box/Blueprints/Blueprint_Character"));
 	if (PlayerPawnBPClass.Class != NULL)	
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	

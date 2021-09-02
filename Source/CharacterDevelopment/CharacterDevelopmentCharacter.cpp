@@ -12,7 +12,7 @@
 ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     // Set size for collision capsule
     GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
-
+    //GetCapsuleComponent()->SetSimulatePhysics(true);
     // set our turn rates for input
     BaseTurnRate = 45.f;
     BaseLookUpRate = 45.f;
@@ -27,6 +27,10 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f); // ...at this rotation rate
     GetCharacterMovement()->JumpZVelocity = 600.f;
     GetCharacterMovement()->AirControl = 0.2f;
+
+	GetMesh()->SetRelativeLocation(FVector( 0.0f, 0.0f, -90.0f));
+    GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+	//Blueprint_Character
 
     // Create a camera boom (pulls in towards the player if there is a collision)
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -43,14 +47,34 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     // are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Input
 
+//=============================================================================================================
+void ACharacterDevelopmentCharacter::BeginPlay() {
+    Super::BeginPlay();
+}
+
+
+//=============================================================================================================
+void ACharacterDevelopmentCharacter::OnFire() {
+    UWorld *const World = GetWorld();
+    if (World != nullptr) {
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("WORLD NOT NULL"));
+        FActorSpawnParameters ActorSpawnParams;
+        ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+        FVector spawnLocation = GetActorLocation();
+        FRotator spawnRotation = GetActorRotation();
+        World->SpawnActor<AFireProjectile>(spawnLocation, spawnRotation, ActorSpawnParams);
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ACharacterDevelopmentCharacter::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) {
     // Set up gameplay key bindings
     check(PlayerInputComponent);
     PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
     PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+
+    PlayerInputComponent->BindAction("Fire", IE_Released, this, &ACharacterDevelopmentCharacter::OnFire);
 
     PlayerInputComponent->BindAxis("MoveForward", this, &ACharacterDevelopmentCharacter::MoveForward);
     PlayerInputComponent->BindAxis("MoveRight", this, &ACharacterDevelopmentCharacter::MoveRight);
@@ -64,16 +88,23 @@ void ACharacterDevelopmentCharacter::SetupPlayerInputComponent(class UInputCompo
     PlayerInputComponent->BindAxis("LookUpRate", this, &ACharacterDevelopmentCharacter::LookUpAtRate);
 }
 
+
+
+
+
+//=============================================================================================================
 void ACharacterDevelopmentCharacter::TurnAtRate(float Rate) {
     // calculate delta for this frame from the rate information
     AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
+//=============================================================================================================
 void ACharacterDevelopmentCharacter::LookUpAtRate(float Rate) {
     // calculate delta for this frame from the rate information
     AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
+//=============================================================================================================
 void ACharacterDevelopmentCharacter::MoveForward(float Value) {
     if ((Controller != nullptr) && (Value != 0.0f)) {
         // find out which way is forward
@@ -86,6 +117,7 @@ void ACharacterDevelopmentCharacter::MoveForward(float Value) {
     }
 }
 
+//=============================================================================================================
 void ACharacterDevelopmentCharacter::MoveRight(float Value) {
     if ((Controller != nullptr) && (Value != 0.0f)) {
         // find out which way is right

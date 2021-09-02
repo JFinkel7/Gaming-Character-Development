@@ -4,6 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+//
+#include "Kismet/GameplayStatics.h" 
+#include "FireProjectile.h"
+//
 #include "CharacterDevelopmentCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -32,7 +36,15 @@ public:
 	float BaseLookUpRate;
 
 protected:
+	//! @brief: Sets Up Our Controller Input  
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	//! @brief: Called When We Start The Game 
+	virtual void BeginPlay();
+
+	//! @brief: Function will create a instance of a fire actor projectile 
+	/** Fires a projectile. */
+	void OnFire();
 
 protected:
 	/** Called for forwards/backward input */

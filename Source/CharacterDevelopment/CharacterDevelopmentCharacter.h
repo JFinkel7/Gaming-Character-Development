@@ -24,18 +24,21 @@ class ACharacterDevelopmentCharacter : public ACharacter{
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
-	/** Gun mesh: VR view (attached to the VR controller directly, no arm, just the actual gun) */
+	//! @brief: Character Skeletal Mesh
 	UPROPERTY(VisibleDefaultsOnly, Category = SkeletalMesh)
-	// OLD FP_Gun
+	class USkeletalMeshComponent* characterSkeletalMesh;
+
+	//! @brief: Weapon Skeletal Mesh
+	UPROPERTY(VisibleDefaultsOnly, Category = SkeletalMesh)
 	class USkeletalMeshComponent* wand;
 
-	/** Location on gun mesh where projectiles should spawn. */
+	//! @brief: Muzzle Scene Component
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	// OLD FP_MuzzleLocation
 	class USceneComponent* shootingLocation;
 	
-	//UPROPERTY(VisibleDefaultsOnly, Category = Socket)
-	//class  USkeletalMeshSocket *socketInstance;
+	//! @brief: Skeletal Mesh Socket 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Socket, meta = (AllowPrivateAccess = "true"))
+	const class USkeletalMeshSocket *socketInstance;
 
 public:
 	//! @brief: Constructor 

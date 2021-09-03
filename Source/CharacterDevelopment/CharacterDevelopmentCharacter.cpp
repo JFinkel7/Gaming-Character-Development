@@ -44,12 +44,18 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     FollowCamera->bUsePawnControlRotation = false;                              // Camera does not rotate relative to arm
 
     // -----------------------------------[Character Mesh]--------------------------------------
-    GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
-    GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+ 
+    characterSkeletalMesh = GetMesh();
+    characterSkeletalMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
+    characterSkeletalMesh->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+    FName socket = TEXT("Head");
+    socketInstance = characterSkeletalMesh->GetSocketByName(socket);
+
+
     //----------------------------------[Wand Mesh]---------------------------------------------
     // Create a gun mesh component
     wand = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Wand"));
-    wand->SetWorldScale3D(FVector(0.05f, 0.05f, 0.05f));
+    wand->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
     wand->SetOnlyOwnerSee(false); // otherwise won't be visible in the multiplayer
     wand->bCastDynamicShadow = false;
     wand->CastShadow = false;
@@ -68,13 +74,13 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
 void ACharacterDevelopmentCharacter::BeginPlay() {
     Super::BeginPlay();
     // -> Character Socket  
-    FName socket = TEXT("Head");
-    // -> Character Mesh Socket
-    const USkeletalMeshSocket *socketInstance = GetMesh()->GetSocketByName(socket);
-    // -> Attachment Transform Rules
+
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Working5"));
     FAttachmentTransformRules rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+    // -> Character Mesh Socket
+    // -> Attachment Transform Rules
     // -> Wand Attach To Character Skeletal Mesh Socket ↓
-    wand->AttachToComponent(GetMesh(), rules, socketInstance->GetFName());
+    wand->AttachToComponent(characterSkeletalMesh, rules, socketInstance->GetFName());
     //wand->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Handle"));
 }
 

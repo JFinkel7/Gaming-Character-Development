@@ -45,9 +45,9 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
 
     // -----------------------------------[Character Mesh]--------------------------------------
  
-    characterSkeletalMesh = GetMesh();
-    characterSkeletalMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
-    characterSkeletalMesh->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+
+    GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
+    GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
    
 
 
@@ -58,32 +58,24 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     wand->SetOnlyOwnerSee(false); // otherwise won't be visible in the multiplayer
     wand->bCastDynamicShadow = false;
     wand->CastShadow = false;
-    //wand->SetupAttachment(GetMesh());
+    wand->SetupAttachment(GetMesh());
     //----------------------------------[Shoot Location]-----------------------------------------
     shootingLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
     shootingLocation->SetupAttachment(wand);
     shootingLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
     // FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
     //FP_Gun->SetupAttachment(RootComponent);
-    // Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character)
-    // are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+
 }
 
 //=============================================================================================================
 void ACharacterDevelopmentCharacter::BeginPlay() {
     Super::BeginPlay();
-    // -> Character Socket  
-    FName socket = TEXT("Head");
-    const class USkeletalMeshSocket *socketInstance  = characterSkeletalMesh->GetSocketByName(socket);
-    FAttachmentTransformRules rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
-    //wand->AttachToComponent(characterSkeletalMesh, rules, socketInstance->GetFName());
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Working"));
+    // - Character Socket  
+    const FAttachmentTransformRules RULE = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+    wand->AttachToComponent(GetMesh(), RULE, TEXT("LeftFoot"));
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Working1"));
 
-    // -> Character Mesh Socket
-    // -> Attachment Transform Rules
-    // -> Wand Attach To Character Skeletal Mesh Socket ↓
-    //wand->AttachToComponent(characterSkeletalMesh, rules, socketInstance->GetFName());
-    //wand->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Handle"));
 }
 
 //=============================================================================================================

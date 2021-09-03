@@ -24,9 +24,7 @@ class ACharacterDevelopmentCharacter : public ACharacter{
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
-	//! @brief: Character Skeletal Mesh
-	UPROPERTY(VisibleDefaultsOnly, Category = SkeletalMesh)
-	class USkeletalMeshComponent* characterSkeletalMesh;
+
 
 	//! @brief: Weapon Skeletal Mesh
 	UPROPERTY(VisibleDefaultsOnly, Category = SkeletalMesh)
@@ -36,9 +34,7 @@ class ACharacterDevelopmentCharacter : public ACharacter{
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USceneComponent* shootingLocation;
 	
-	//! @brief: Skeletal Mesh Socket 
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Socket, meta = (AllowPrivateAccess = "true"))
-	//const class USkeletalMeshSocket *socketInstance;
+
 
 public:
 	//! @brief: Constructor 

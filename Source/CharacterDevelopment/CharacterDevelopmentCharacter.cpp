@@ -12,7 +12,8 @@
 ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     // Set size for collision capsule
 
-    GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+    //GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+    GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
     //GetCapsuleComponent()->SetSimulatePhysics(true);
 
     // set our turn rates for input
@@ -75,15 +76,13 @@ void ACharacterDevelopmentCharacter::BeginPlay() {
     const FAttachmentTransformRules RULE = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
     wand->AttachToComponent(GetMesh(), RULE, TEXT("RightHand"));
     wand->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Working"));
-
 }
 
 //=============================================================================================================
 void ACharacterDevelopmentCharacter::OnFire() {
     UWorld *const World = GetWorld();
     if (World != nullptr) {
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("WORLD NOT NULL"));
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Shot Fired"));
         FActorSpawnParameters ActorSpawnParams;
         ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
         const FVector SpawnLocation = shootingLocation->GetComponentLocation();

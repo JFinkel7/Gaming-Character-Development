@@ -5,7 +5,5 @@ CharacterDevelopmentCharacter.cpp
 CharacterDevelopmentCharacter.h
 CharacterDevelopmentGameMode.cpp
 CharacterDevelopmentGameMode.h
-Elevator.cpp
-Elevator.h
-SwitchBox.cpp
-SwitchBox.h
+FireProjectile.h
+FireProjectile.cpp

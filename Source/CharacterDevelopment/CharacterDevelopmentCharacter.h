@@ -37,8 +37,8 @@ class ACharacterDevelopmentCharacter : public ACharacter{
 	class USceneComponent* shootingLocation;
 	
 	//! @brief: Skeletal Mesh Socket 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Socket, meta = (AllowPrivateAccess = "true"))
-	const class USkeletalMeshSocket *socketInstance;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Socket, meta = (AllowPrivateAccess = "true"))
+	//const class USkeletalMeshSocket *socketInstance;
 
 public:
 	//! @brief: Constructor 

@@ -48,8 +48,7 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     characterSkeletalMesh = GetMesh();
     characterSkeletalMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
     characterSkeletalMesh->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-    FName socket = TEXT("Head");
-    socketInstance = characterSkeletalMesh->GetSocketByName(socket);
+   
 
 
     //----------------------------------[Wand Mesh]---------------------------------------------
@@ -74,13 +73,16 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
 void ACharacterDevelopmentCharacter::BeginPlay() {
     Super::BeginPlay();
     // -> Character Socket  
-
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Working5"));
+    FName socket = TEXT("Head");
+    const class USkeletalMeshSocket *socketInstance  = characterSkeletalMesh->GetSocketByName(socket);
     FAttachmentTransformRules rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+    //wand->AttachToComponent(characterSkeletalMesh, rules, socketInstance->GetFName());
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Working"));
+
     // -> Character Mesh Socket
     // -> Attachment Transform Rules
     // -> Wand Attach To Character Skeletal Mesh Socket ↓
-    wand->AttachToComponent(characterSkeletalMesh, rules, socketInstance->GetFName());
+    //wand->AttachToComponent(characterSkeletalMesh, rules, socketInstance->GetFName());
     //wand->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Handle"));
 }
 

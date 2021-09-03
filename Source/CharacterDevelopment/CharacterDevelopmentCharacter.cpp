@@ -50,7 +50,7 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
    
 
-
+    //Animation_V1.01
     //----------------------------------[Wand Mesh]---------------------------------------------
     // Create a gun mesh component
     wand = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Wand"));
@@ -73,8 +73,9 @@ void ACharacterDevelopmentCharacter::BeginPlay() {
     Super::BeginPlay();
     // - Character Socket  
     const FAttachmentTransformRules RULE = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
-    wand->AttachToComponent(GetMesh(), RULE, TEXT("LeftFoot"));
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Working1"));
+    wand->AttachToComponent(GetMesh(), RULE, TEXT("RightHand"));
+    wand->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Working"));
 
 }
 

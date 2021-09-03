@@ -23,7 +23,7 @@ AFireProjectile::AFireProjectile() {
     SphereVisual->SetupAttachment(CollisionSphere);
 
     // - Load The Static Mesh
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/Assets/Ball.Ball"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/Assets/Shapes/Ball.Ball"));
     if (SphereVisualAsset.Succeeded()) {
         SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
        

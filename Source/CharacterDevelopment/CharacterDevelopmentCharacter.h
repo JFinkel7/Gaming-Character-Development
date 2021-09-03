@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 //
+#include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h" 
 #include "FireProjectile.h"
 //
@@ -22,6 +23,19 @@ class ACharacterDevelopmentCharacter : public ACharacter{
 	//! @brief: Follow Camera 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+
+	/** Gun mesh: VR view (attached to the VR controller directly, no arm, just the actual gun) */
+	UPROPERTY(VisibleDefaultsOnly, Category = SkeletalMesh)
+	// OLD FP_Gun
+	class USkeletalMeshComponent* wand;
+
+	/** Location on gun mesh where projectiles should spawn. */
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	// OLD FP_MuzzleLocation
+	class USceneComponent* shootingLocation;
+	
+	//UPROPERTY(VisibleDefaultsOnly, Category = Socket)
+	//class  USkeletalMeshSocket *socketInstance;
 
 public:
 	//! @brief: Constructor 

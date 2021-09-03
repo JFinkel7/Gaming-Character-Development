@@ -15,7 +15,6 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
     //GetCapsuleComponent()->SetSimulatePhysics(true);
 
-    
     // set our turn rates for input
     BaseTurnRate = 45.f;
     BaseLookUpRate = 45.f;
@@ -31,9 +30,7 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     GetCharacterMovement()->JumpZVelocity = 600.f;
     GetCharacterMovement()->AirControl = 0.2f;
 
-	GetMesh()->SetRelativeLocation(FVector( 0.0f, 0.0f, -90.0f));
-    GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-	//Blueprint_Character
+    //Blueprint_Character
 
     // Create a camera boom (pulls in towards the player if there is a collision)
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -46,16 +43,40 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
     FollowCamera->bUsePawnControlRotation = false;                              // Camera does not rotate relative to arm
 
+    // -----------------------------------[Character Mesh]--------------------------------------
+    GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
+    GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+    //----------------------------------[Wand Mesh]---------------------------------------------
+    // Create a gun mesh component
+    wand = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Wand"));
+    wand->SetWorldScale3D(FVector(0.05f, 0.05f, 0.05f));
+    wand->SetOnlyOwnerSee(false); // otherwise won't be visible in the multiplayer
+    wand->bCastDynamicShadow = false;
+    wand->CastShadow = false;
+    //wand->SetupAttachment(GetMesh());
+    //----------------------------------[Shoot Location]-----------------------------------------
+    shootingLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
+    shootingLocation->SetupAttachment(wand);
+    shootingLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
+    // FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
+    //FP_Gun->SetupAttachment(RootComponent);
     // Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character)
     // are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
-
 //=============================================================================================================
 void ACharacterDevelopmentCharacter::BeginPlay() {
     Super::BeginPlay();
+    // -> Character Socket  
+    FName socket = TEXT("Head");
+    // -> Character Mesh Socket
+    const USkeletalMeshSocket *socketInstance = GetMesh()->GetSocketByName(socket);
+    // -> Attachment Transform Rules
+    FAttachmentTransformRules rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+    // -> Wand Attach To Character Skeletal Mesh Socket ↓
+    wand->AttachToComponent(GetMesh(), rules, socketInstance->GetFName());
+    //wand->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Handle"));
 }
-
 
 //=============================================================================================================
 void ACharacterDevelopmentCharacter::OnFire() {
@@ -64,9 +85,9 @@ void ACharacterDevelopmentCharacter::OnFire() {
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("WORLD NOT NULL"));
         FActorSpawnParameters ActorSpawnParams;
         ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-        FVector spawnLocation = GetActorLocation();
-        FRotator spawnRotation = GetActorRotation();
-        World->SpawnActor<AFireProjectile>(spawnLocation, spawnRotation, ActorSpawnParams);
+        const FVector SpawnLocation = shootingLocation->GetComponentLocation();
+        const FRotator SpawnRotation = shootingLocation->GetComponentRotation();
+        World->SpawnActor<AFireProjectile>(SpawnLocation, SpawnRotation, ActorSpawnParams);
     }
 }
 
@@ -90,10 +111,6 @@ void ACharacterDevelopmentCharacter::SetupPlayerInputComponent(class UInputCompo
     PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
     PlayerInputComponent->BindAxis("LookUpRate", this, &ACharacterDevelopmentCharacter::LookUpAtRate);
 }
-
-
-
-
 
 //=============================================================================================================
 void ACharacterDevelopmentCharacter::TurnAtRate(float Rate) {

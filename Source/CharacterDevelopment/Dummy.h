@@ -7,7 +7,8 @@
 // - Personal Imports 
 #include "UObject/ConstructorHelpers.h"
 #include "Components/SceneComponent.h"
-#include "PhysicsEngine/BodySetup.h" 
+//#include "PhysicsEngine/BodySetup.h" 
+//#include "PhysicsEngine/BodySetupEnums.h"
 //
 #include "HealthComponent.h"
 //

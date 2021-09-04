@@ -10,12 +10,25 @@ ADummy::ADummy() {
 	// [ROOT]
     meshVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RootComponent"));
 	meshVisual->SetCollisionProfileName(TEXT("Pawn"),true);
+	UBodySetup* BodySetup = meshVisual->GetBodySetup(); 
+	BodySetup->CollisionTraceFlag = ECollisionTraceFlag::CTF_UseComplexAsSimple;
+
+
+
+	// Keyword: CollisionTraceFlag 
+	// Keyword: ECollisionTraceFlag
+	// Keyword: GetBodySetup()
+	// Keyword: UBodySetup 
+
 	//meshVisual->GetBodySetup()->CollisionTraceFlag = ECollisionTraceFlag::CTF_UseSimpleAsComplex;
     meshVisual->SetEnableGravity(true);
     meshVisual->SetSimulatePhysics(true);
-    meshVisual->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-    meshVisual->SetNotifyRigidBodyCollision(true);
+    //meshVisual->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    //meshVisual->SetNotifyRigidBodyCollision(true);
 	
+
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Current Name = %s"), *GetActor()));
+
 	RootComponent = meshVisual;
 	//meshVisual->SetupAttachment(RootComponent);
 
@@ -25,7 +38,7 @@ ADummy::ADummy() {
 	// [Static Mesh]
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/Character_Box/Mesh/Default_Man.Default_Man"));
     if (MeshAsset.Succeeded()) {
-        meshVisual->SetStaticMesh(MeshAsset.Object);
+        meshVisual->SetStaticMesh(MeshAsset.Object);		
     }
 
 }
@@ -33,6 +46,9 @@ ADummy::ADummy() {
 // Called when the game starts or when spawned
 void ADummy::BeginPlay() {
     Super::BeginPlay();
+	UBodySetup* BodySetup = meshVisual->GetBodySetup(); 
+	BodySetup->CollisionTraceFlag = ECollisionTraceFlag::CTF_UseComplexAsSimple;
+	
 }
 
 // Called every frame

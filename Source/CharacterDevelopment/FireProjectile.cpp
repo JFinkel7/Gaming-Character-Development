@@ -15,8 +15,9 @@ AFireProjectile::AFireProjectile() {
     CollisionSphere->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     CollisionSphere->SetNotifyRigidBodyCollision(true);
     CollisionSphere->OnComponentHit.AddDynamic(this, &AFireProjectile::OnHit);
-
     RootComponent = CollisionSphere;
+
+    healthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 
     // - Create Visual Static Mesh Component
     SphereVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));

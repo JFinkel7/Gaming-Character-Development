@@ -7,8 +7,7 @@
 // - Imports
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h" 
-// - My Imports 
-#include "HealthComponent.h"
+
 //
 #include "FireProjectile.generated.h"
 
@@ -28,9 +27,7 @@ class CHARACTERDEVELOPMENT_API AFireProjectile : public AActor{
    	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Projectile, meta = (AllowPrivateAccess = "true"))
     class UProjectileMovementComponent* ProjectileMovement;
 
-	/** Health component **/
-   	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
-    class UHealthComponent* healthComponent;
+
 	
 public:	
 	// Sets default values for this actor's properties

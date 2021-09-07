@@ -51,22 +51,14 @@ void AFireProjectile::OnHit(UPrimitiveComponent *HitComp, AActor *OtherActor, UP
     //if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) & OtherComp->IsSimulatingPhysics()){
     // Only add impulse and destroy projectile if we hit a physics
     if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics()) {  
-              
+        UGameplayStatics::ApplyPointDamage(OtherActor, 10.0f, GetActorLocation(), Hit, NULL, NULL, UDamageType::StaticClass());     
         OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
 
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("I Hit Actor:  %s"), *OtherActor->GetName()));
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("I Hit Component:  %s"), *HitComp->GetName()));
 
-      
-
-        //OtherComp->AddForce(FVector(50.0f,50.0f,50.0f)*OtherComp->GetMass());
-        //OtherComp
-
-        //ProjectileMovement->Velocity = FVector(0.0f, 5.0f, 0.0f) * ProjectileMovement->InitialSpeed;
-        // - Moves The Component
-        //ProjectileMovement->AddForce(FVector(50.0f,50.0f,50.0f));
-        //Destroy();
+        Destroy();
     }
 }
 

@@ -17,10 +17,12 @@ void UHealthComponent::BeginPlay() {
     Super::BeginPlay();
     // (4) - Gets The Actor That This Component Is Attatched To
     AActor *current_actor = GetOwner();
-    if (current_actor != nullptr) {
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Current Name = %s"), *current_actor->GetName()));
 
+    if (current_actor != nullptr) {
         current_actor->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Current Name = %s"), *current_actor->GetName()));
+        //     current_actor->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::ReceiveAnyDamage);
+        //     //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Health Component Hit Registered"));
     }
 
     // ...
@@ -34,6 +36,13 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 }
 
 //================================================================================================================
+void UHealthComponent::ReceiveAnyDamage(float Damage, const class UDamageType *DamageType, class AController *InstigatedBy, AActor *DamageCauser) {
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Health Component Hit Registered"));
+    //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Damage Was Taken By Actor: %s"), *DamagedActor->GetName()));
+}
+
+//================================================================================================================
 void UHealthComponent::TakeDamage(AActor *DamagedActor, float Damage, const class UDamageType *DamageType, class AController *InstigatedBy, AActor *DamageCauser) {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Damage Was Taken By Actor: %s"), *DamagedActor->GetName()));
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Health Component Hit Registered"));
+    //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Damage Was Taken By Actor: %s"), *DamagedActor->GetName()));
 }

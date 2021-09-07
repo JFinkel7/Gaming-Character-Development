@@ -5,7 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 // - Imports
-#include "Components/SphereComponent.h"
+#include "Components/SphereComponent.h" 	
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/ProjectileMovementComponent.h" 
 
 //

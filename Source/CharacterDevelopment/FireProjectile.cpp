@@ -51,7 +51,7 @@ void AFireProjectile::OnHit(UPrimitiveComponent *HitComp, AActor *OtherActor, UP
     //if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) & OtherComp->IsSimulatingPhysics()){
     // Only add impulse and destroy projectile if we hit a physics
     if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics()) {  
-        UGameplayStatics::ApplyPointDamage(OtherActor, 10.0f, GetActorLocation(), Hit, NULL, NULL, UDamageType::StaticClass());     
+        UGameplayStatics::ApplyPointDamage(OtherActor, 20.0f, GetActorLocation(), Hit, NULL, NULL, UDamageType::StaticClass());     
         OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
 

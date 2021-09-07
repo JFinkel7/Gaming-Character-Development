@@ -37,9 +37,9 @@ float ADummy::TakeDamage(float DamageAmount, struct FDamageEvent const &DamageEv
     const float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
     GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Applying Damage!"));
 	CurrentHealth -= ActualDamage;
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Damage Was Taken By Actor: %f"), CurrentHealth));
 
 	if (CurrentHealth <= 0.0f){
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Damage Was Taken By Actor: %f"),ActualDamage));
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Applying Damage!"));
 	}
 	

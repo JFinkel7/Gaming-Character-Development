@@ -40,7 +40,8 @@ float ADummy::TakeDamage(float DamageAmount, struct FDamageEvent const &DamageEv
     GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Damage Was Taken By Actor: %f"), CurrentHealth));
 
 	if (CurrentHealth <= 0.0f){
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Applying Damage!"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Character Is Dead"));
+        ADummy::Destroy();
 	}
 	
     return ActualDamage; 

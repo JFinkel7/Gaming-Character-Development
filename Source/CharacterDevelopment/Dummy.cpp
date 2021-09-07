@@ -17,8 +17,7 @@ ADummy::ADummy() {
     // - PARENT
     _meshVisual->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
-    // [COMPONENT]
-    _healthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+
 }
 
 // Called when the game starts or when spawned
@@ -35,11 +34,15 @@ void ADummy::Tick(float DeltaTime) {
 }
 
 float ADummy::TakeDamage(float DamageAmount, struct FDamageEvent const &DamageEvent, class AController *EventInstigator, AActor *DamageCauser) {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("I Was Damaged!"));
-    return (0.0f);
+    const float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Applying Damage!"));
+	CurrentHealth -= ActualDamage;
+
+	if (CurrentHealth <= 0.0f){
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Damage Was Taken By Actor: %f"),ActualDamage));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Applying Damage!"));
+	}
+	
+    return ActualDamage; 
 }
 
-void ADummy::ReceiveAnyDamage(float Damage, const class UDamageType *DamageType, class AController *InstigatedBy, AActor *DamageCauser) {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Health Component Hit Registered"));
-    //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Damage Was Taken By Actor: %s"), *DamagedActor->GetName()));
-}

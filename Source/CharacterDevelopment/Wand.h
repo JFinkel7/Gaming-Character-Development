@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+// include draw debug helpers header file
+#include "DrawDebugHelpers.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h" 
 #include "CoreMinimal.h"

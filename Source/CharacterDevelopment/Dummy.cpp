@@ -23,7 +23,7 @@ ADummy::ADummy() {
 // Called when the game starts or when spawned
 void ADummy::BeginPlay() {
     Super::BeginPlay();
-   // _meshVisual->OnTakeAnyDamage.AddDynamic(this, &ADummy::TakeDamage);
+
 }
 
 // Called every frame
@@ -31,6 +31,3 @@ void ADummy::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
 }
 
-void ADummy::TakeDamage(AActor *DamagedActor, float Damage, const class UDamageType *DamageType, class AController *InstigatedBy, AActor *DamageCauser) {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Damaged"));
-}

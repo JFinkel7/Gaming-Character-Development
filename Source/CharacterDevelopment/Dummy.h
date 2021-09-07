@@ -31,7 +31,6 @@ public:
 protected:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
-	void TakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
 public:
     // Called every frame

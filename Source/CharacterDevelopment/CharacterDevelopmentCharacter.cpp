@@ -45,11 +45,9 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     FollowCamera->bUsePawnControlRotation = false;                              // Camera does not rotate relative to arm
 
     // -----------------------------------[Character Mesh]--------------------------------------
- 
 
     GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
     GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-   
 
     //Animation_V1.01
     //----------------------------------[Wand Mesh]---------------------------------------------
@@ -66,13 +64,12 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     shootingLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
     // FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
     //FP_Gun->SetupAttachment(RootComponent);
-
 }
 
 //=============================================================================================================
 void ACharacterDevelopmentCharacter::BeginPlay() {
     Super::BeginPlay();
-    // - Character Socket  
+    // - Character Socket
     const FAttachmentTransformRules RULE = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
     wand->AttachToComponent(GetMesh(), RULE, TEXT("RightHand"));
     wand->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
@@ -91,6 +88,46 @@ void ACharacterDevelopmentCharacter::OnFire() {
     }
 }
 
+void ACharacterDevelopmentCharacter::onFireLineTrace() {
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("2"));
+    // 1 - SET HitResult
+    FHitResult OutHit;
+    // 2 - GET Shooting Vector Location
+    FVector Start = shootingLocation->GetComponentLocation();
+    // 3 - GET Follow Camera Forward Vector
+    FVector End = ((FollowCamera->GetForwardVector() * 1000.f) + Start);
+    // 4 - SET Collision Params
+    FCollisionQueryParams CollisionParams;
+    // 5 - DRAW INFO
+    DrawDebugLine(GetWorld(), Start, End, FColor::Green, true);
+    // 6 - DRAW Line Trace
+    bool bIsHit = GetWorld()->LineTraceSingleByChannel(
+        OutHit,         // FHitResult object that will be populated with hit info
+        Start,          // starting position
+        End,            // end position
+        ECC_Visibility, // collision channel - 3rd custom one
+        CollisionParams // additional trace settings
+    );
+    // 7 - CHECK if Line trace hit an Object
+    if (bIsHit) {
+        // ~ GET - Object Hit Name
+        GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("You are hitting: %s"), *OutHit.GetActor()->GetName()));
+        
+        
+        // AActor * hitActor = OutHit.GetActor();
+    
+        // //hitActor->SetActorLocation(FVector(100.0f,100.0f,100.0f));
+        // // OR 
+        // hitActor->SetActorLocation(FVector(100.0f,100.0f,100.0f),false);
+        // // OR 
+        // //hitActor->SetActorLocation(FVector(100.0f,100.0f,100.0f),false, FHitResult,ETeleportType::TeleportPhysics);
+       
+       
+        //GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("You are hitting: %s"), *hitActor->GetName()));
+ 
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ACharacterDevelopmentCharacter::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) {
     // Set up gameplay key bindings
@@ -98,7 +135,10 @@ void ACharacterDevelopmentCharacter::SetupPlayerInputComponent(class UInputCompo
     PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
     PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
+    // new
     PlayerInputComponent->BindAction("Fire", IE_Released, this, &ACharacterDevelopmentCharacter::OnFire);
+    // new
+    PlayerInputComponent->BindAction("FireLineTrace", IE_Released, this, &ACharacterDevelopmentCharacter::onFireLineTrace);
 
     PlayerInputComponent->BindAxis("MoveForward", this, &ACharacterDevelopmentCharacter::MoveForward);
     PlayerInputComponent->BindAxis("MoveRight", this, &ACharacterDevelopmentCharacter::MoveRight);

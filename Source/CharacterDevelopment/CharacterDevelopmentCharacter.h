@@ -7,6 +7,7 @@
 //
 #include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h" 
+#include "DrawDebugHelpers.h"
 #include "FireProjectile.h"
 //
 #include "CharacterDevelopmentCharacter.generated.h"
@@ -58,6 +59,9 @@ protected:
 	//! @brief: Function will create a instance of a fire actor projectile 
 	/** Fires a projectile. */
 	void OnFire();
+
+	//! @brief: Function will Fire Line Trace
+	void onFireLineTrace();
 
 protected:
 	/** Called for forwards/backward input */

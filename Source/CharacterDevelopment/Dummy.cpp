@@ -42,13 +42,25 @@ void ADummy::BeginPlay() {
             Binding.bConsumeInput = false;
         }
     }
+
+  
 }
 
 //=========================================[Pick Up Object]=======================================
 void ADummy::Pickup() {
-    //RootComponent->
-    //RootComponent->BeginDestroy();
-    //RootComponent->DestroyComponent(true);
+    // #include "CharacterDevelopmentCharacter.h"
+   // Then Varable and cast it on this Actor (ADummy)                           ↓
+    // NOTE: Our Current Actor Is A Stick 
+    // (1) - Cast Our Character
+    class ACharacterDevelopmentCharacter *characterPtr = Cast<ACharacterDevelopmentCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
+
+    if (characterPtr != nullptr) {
+        // (2) - Create A Rule 
+        const FAttachmentTransformRules RULE = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+        // (3) - Attatch Our Stick (_meshVisual) To Character Left Hand 
+        _meshVisual->AttachToComponent(characterPtr->GetWeaponSkeletalMesh(),RULE,TEXT("LeftHand"));
+    }
+
     GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Picked Up Item"));
 }
 

@@ -38,6 +38,9 @@ class ACharacterDevelopmentCharacter : public ACharacter{
 
 
 public:
+	// (1) - Create A Method In CharacterDevelopment.h
+	void getMessage();
+	
 	//! @brief: Constructor 
 	ACharacterDevelopmentCharacter();
 
@@ -48,6 +51,12 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
+
+
+public:   
+
+    //! @brief: Return Character Weapon Skeletal Mesh Component 
+    FORCEINLINE class USkeletalMeshComponent *GetWeaponSkeletalMesh() const { return wand; }
 
 protected:
 	//! @brief: Sets Up Our Controller Input  

@@ -8,24 +8,22 @@
 #include "Components/BoxComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/SphereComponent.h"
+#include "Components/InputComponent.h"
 #include "InputCoreTypes.h"
 #include "UObject/ConstructorHelpers.h"
 //
 #include "Dummy.generated.h"
 
+// (1) - Create (Actor) Class
 UCLASS()
 class CHARACTERDEVELOPMENT_API ADummy : public AActor {
     GENERATED_BODY()
-
-    /** Statich mesh component **/
+    
+    //! @brief: Sets Statich mesh component
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
     class UStaticMeshComponent *_meshVisual;
 
-    //! @brief: Sets Up Our Controller Input
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
-    class UInputComponent *ActorInputComponent;
-
-    /** Sphere collision component **/
+    //! @brief: Sets Collision component
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Collision, meta = (AllowPrivateAccess = "true"))
     class USphereComponent *CollisionSphere;
 
@@ -46,10 +44,12 @@ protected:
     virtual void BeginPlay() override;
 
     virtual float TakeDamage(float DamageAmount, struct FDamageEvent const &DamageEvent, class AController *EventInstigator, AActor *DamageCauser) override;
+   
+    // (3) - Create A (Custom) Event Method 
+    // That will respond when we hit the P key
+    void Pickup();
 
 
-
-    void SaveGame();
 public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;

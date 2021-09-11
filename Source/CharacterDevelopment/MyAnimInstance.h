@@ -15,8 +15,22 @@
 UCLASS()
 class CHARACTERDEVELOPMENT_API UMyAnimInstance : public UAnimInstance {
     GENERATED_BODY()
+
+
 public:
     UMyAnimInstance();
+
+	
+    //! @brief: Runs after The Constructor and NativeInitalize
+    virtual void PostInitProperties() override;
+
+protected:
+    //! @brief: The native overrides for each phase Native initialization override point
+    //! @note: This will be called about the same time as the constructor
+    virtual void NativeInitializeAnimation() override;
+
+    //! @brief: Updates Animation | Equal to Tick() Method
+    virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 protected:
     //! @brief: True means that we're currently in air - or falling
@@ -31,18 +45,12 @@ protected:
     UFUNCTION(BlueprintCallable, Category = "UpdateAnimationProperties")
     void UpdateAnimationProperties();
 
-    //! @brief: The native overrides for each phase Native initialization override point
-    //! @note: This will be called about the same time as the constructor
-    virtual void NativeInitializeAnimation() override;
-
-    //! @brief: Updates Animation | Equal to Tick() Method 
-    virtual void NativeUpdateAnimation(float DeltaSeconds) override;
-
 private:
     //! @brief: (Jump) Anim Sequence
     //! @note: Stores Memory Address Of UAnimSequenc
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Collision, meta = (AllowPrivateAccess = "true"))
     class UAnimSequence *_jumpSequencePtr;
 
-	APawn *Owner; // = TryGetPawnOwner();
+    APawn *_owner;
+    ACharacterDevelopmentCharacter *_playerCharacter;
 };

@@ -4,11 +4,11 @@
 
 // - Main
 UMyAnimInstance::UMyAnimInstance() {
-    Owner = TryGetPawnOwner()
+
     //C:\Users\User\Documents\Unreal Projects\CharacterDevelopment\Content\TBot\Animation
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> animation(TEXT("/Game/TBot/Animation/Jumping_Up.Jumping_Up"));
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ANIM - Constructor = True"));
-    _jumpSequencePtr = animation.Object;
+    //static ConstructorHelpers::FObjectFinder<UAnimSequence> animation(TEXT("/Game/TBot/Animation/Jumping_Up.Jumping_Up"));
+    //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ANIM - Constructor = True"));
+    //_jumpSequencePtr = animation.Object;
     //bool isLooping = false;
     //this->GetMesh()->PlayAnimation(_jumpSequencePtr,isLooping);
 }
@@ -17,6 +17,7 @@ UMyAnimInstance::UMyAnimInstance() {
 
 void UMyAnimInstance::NativeInitializeAnimation(){
     Super::NativeInitializeAnimation();
+    Owner = TryGetPawnOwner();
     // (1) - Get Pawn Owner Reference (Which is our Character that is using this animation)
     //APawn *Owner = TryGetPawnOwner();
     // (2) - Cast Our Character 
@@ -25,9 +26,7 @@ void UMyAnimInstance::NativeInitializeAnimation(){
     if(PlayerCharacter != NULL){
         // (3) - Call Our Character Class Methods 
         bIsFalling = PlayerCharacter->GetMovementComponent()->IsFalling();
-
         //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("True"));
-        //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("I Hit Actor:  %s"), result));
 
     }
 }

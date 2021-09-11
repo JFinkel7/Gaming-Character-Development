@@ -13,13 +13,9 @@
 UCLASS()
 class CHARACTERDEVELOPMENT_API UMyAnimInstance : public UAnimInstance{
 	GENERATED_BODY()
-
-
 public:
 	UMyAnimInstance();
-
 protected:
-
 		/*True means that we're currently in air - or falling*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool bIsFalling;

@@ -3,8 +3,7 @@
 #include "MyAnimInstance.h"
 
 // - Main
-UMyAnimInstance::UMyAnimInstance() {
-}
+UMyAnimInstance::UMyAnimInstance() {}
 
 void UMyAnimInstance::UpdateAnimationProperties() {
     //Get the pawn which is affected by our anim instance

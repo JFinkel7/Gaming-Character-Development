@@ -21,8 +21,7 @@ public:
     UMyAnimInstance();
 
 	
-    //! @brief: Runs after The Constructor and NativeInitalize
-    virtual void PostInitProperties() override;
+
 
 protected:
     //! @brief: The native overrides for each phase Native initialization override point

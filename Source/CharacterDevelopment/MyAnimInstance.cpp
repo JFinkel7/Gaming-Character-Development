@@ -27,9 +27,6 @@ void UMyAnimInstance::NativeInitializeAnimation() {
 }
 
 
-void UMyAnimInstance::PostInitProperties(){
-  GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("PostInit = True"));
-}
 
 void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds) {
 }

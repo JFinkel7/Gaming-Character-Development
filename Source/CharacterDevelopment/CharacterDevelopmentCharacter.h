@@ -53,10 +53,12 @@ public:
 	float BaseLookUpRate;
 
 
+
 public:   
 
     //! @brief: Return Character Weapon Skeletal Mesh Component 
     FORCEINLINE class USkeletalMeshComponent *GetWeaponSkeletalMesh() const { return wand; }
+
 
 protected:
 	//! @brief: Sets Up Our Controller Input  

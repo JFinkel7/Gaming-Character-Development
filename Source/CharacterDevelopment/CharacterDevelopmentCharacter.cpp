@@ -14,11 +14,7 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
 
     //GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
     GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
-    //GetCapsuleComponent()->SetSimulatePhysics(true);
-    //static ConstructorHelpers::FObjectFinder<UAnimSequence> animation(TEXT("/Game/TBot/Animation/Jumping_Up.Jumping_Up"));
-    //_jumpSequencePtr = animation.Object;
-    //bool isLooping = false;
-    //this->GetMesh()->PlayAnimation(_jumpSequencePtr,isLooping);
+
     // set our turn rates for input
     BaseTurnRate = 45.f;
     BaseLookUpRate = 45.f;
@@ -115,25 +111,21 @@ void ACharacterDevelopmentCharacter::onFireLineTrace() {
     if (bIsHit) {
         // ~ GET - Object Hit Name
         GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("You are hitting: %s"), *OutHit.GetActor()->GetName()));
-        
-        
+
         // AActor * hitActor = OutHit.GetActor();
-    
+
         // //hitActor->SetActorLocation(FVector(100.0f,100.0f,100.0f));
-        // // OR 
+        // // OR
         // hitActor->SetActorLocation(FVector(100.0f,100.0f,100.0f),false);
-        // // OR 
+        // // OR
         // //hitActor->SetActorLocation(FVector(100.0f,100.0f,100.0f),false, FHitResult,ETeleportType::TeleportPhysics);
-       
-       
+
         //GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("You are hitting: %s"), *hitActor->GetName()));
- 
     }
 }
 
-void ACharacterDevelopmentCharacter::getMessage(){
+void ACharacterDevelopmentCharacter::getMessage() {
     GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Message From Character"));
-
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ACharacterDevelopmentCharacter::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) {

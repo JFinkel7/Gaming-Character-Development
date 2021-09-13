@@ -90,10 +90,8 @@ protected:
 
 
 private:
- 	//! @brief: (Jump) Anim Sequence
-    //! @note: Stores Memory Address Of UAnimSequenc
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Collision, meta = (AllowPrivateAccess = "true"))
-    class UAnimSequence *_jumpSequencePtr;
+
 
 };
 
+ 

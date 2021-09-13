@@ -76,7 +76,7 @@ void ACharacterDevelopmentCharacter::BeginPlay() {
 
 //=============================================[Punching]=====================================================
 void ACharacterDevelopmentCharacter::OnPunch(){
-
+    
 }
 
 //=============================================[Firing]=====================================================
@@ -129,9 +129,8 @@ void ACharacterDevelopmentCharacter::onFireLineTrace() {
     }
 }
 
-void ACharacterDevelopmentCharacter::getMessage() {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Message From Character"));
-}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ACharacterDevelopmentCharacter::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) {
     // Set up gameplay key bindings

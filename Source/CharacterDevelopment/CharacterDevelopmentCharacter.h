@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 //
+#include "Animation/AnimSequence.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h" 
 #include "DrawDebugHelpers.h"
@@ -87,6 +88,12 @@ protected:
 	/**Called via input to turn look up/down at a given rate.  @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate*/
 	void LookUpAtRate(float Rate);
 
+
+private:
+ 	//! @brief: (Jump) Anim Sequence
+    //! @note: Stores Memory Address Of UAnimSequenc
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Collision, meta = (AllowPrivateAccess = "true"))
+    class UAnimSequence *_jumpSequencePtr;
 
 };
 

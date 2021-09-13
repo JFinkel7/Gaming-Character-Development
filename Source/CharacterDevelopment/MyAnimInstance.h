@@ -9,27 +9,12 @@
 #include "GameFramework/PawnMovementComponent.h"
 #include "MyAnimInstance.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class CHARACTERDEVELOPMENT_API UMyAnimInstance : public UAnimInstance {
     GENERATED_BODY()
 
-
 public:
     UMyAnimInstance();
-
-	
-
-
-protected:
-    //! @brief: The native overrides for each phase Native initialization override point
-    //! @note: This will be called about the same time as the constructor
-    virtual void NativeInitializeAnimation() override;
-
-    //! @brief: Updates Animation | Equal to Tick() Method
-    virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 protected:
     //! @brief: True means that we're currently in air - or falling
@@ -43,13 +28,4 @@ protected:
     //! @brief: Updates the above properties
     UFUNCTION(BlueprintCallable, Category = "UpdateAnimationProperties")
     void UpdateAnimationProperties();
-
-private:
-    //! @brief: (Jump) Anim Sequence
-    //! @note: Stores Memory Address Of UAnimSequenc
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Collision, meta = (AllowPrivateAccess = "true"))
-    class UAnimSequence *_jumpSequencePtr;
-
-    APawn *_owner;
-    ACharacterDevelopmentCharacter *_playerCharacter;
 };

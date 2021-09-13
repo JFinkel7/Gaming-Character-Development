@@ -15,7 +15,10 @@ ACharacterDevelopmentCharacter::ACharacterDevelopmentCharacter() {
     //GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
     GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
     //GetCapsuleComponent()->SetSimulatePhysics(true);
-
+    //static ConstructorHelpers::FObjectFinder<UAnimSequence> animation(TEXT("/Game/TBot/Animation/Jumping_Up.Jumping_Up"));
+    //_jumpSequencePtr = animation.Object;
+    //bool isLooping = false;
+    //this->GetMesh()->PlayAnimation(_jumpSequencePtr,isLooping);
     // set our turn rates for input
     BaseTurnRate = 45.f;
     BaseLookUpRate = 45.f;

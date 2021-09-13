@@ -26,8 +26,6 @@ class ACharacterDevelopmentCharacter : public ACharacter{
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
-
-
 	//! @brief: Weapon Skeletal Mesh
 	UPROPERTY(VisibleDefaultsOnly, Category = SkeletalMesh)
 	class USkeletalMeshComponent* wand;
@@ -39,9 +37,6 @@ class ACharacterDevelopmentCharacter : public ACharacter{
 
 
 public:
-	// (1) - Create A Method In CharacterDevelopment.h
-	void getMessage();
-	
 	//! @brief: Constructor 
 	ACharacterDevelopmentCharacter();
 
@@ -68,9 +63,14 @@ protected:
 	//! @brief: Called When We Start The Game 
 	virtual void BeginPlay();
 
+
+protected:
+	// ----- Character Input Actions -----  
 	//! @brief: Function will create a instance of a fire actor projectile 
 	/** Fires a projectile. */
 	void OnFire();
+
+	void OnPunch();
 
 	//! @brief: Function will Fire Line Trace
 	void onFireLineTrace();

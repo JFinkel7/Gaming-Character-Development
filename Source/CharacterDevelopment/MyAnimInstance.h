@@ -4,6 +4,7 @@
 
 #include "Animation/AnimInstance.h"
 #include "Animation/AnimSequence.h"
+#include "Animation/AnimMontage.h"
 #include "CharacterDevelopmentCharacter.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PawnMovementComponent.h"
@@ -28,4 +29,22 @@ protected:
     //! @brief: Updates the above properties
     UFUNCTION(BlueprintCallable, Category = "UpdateAnimationProperties")
     void UpdateAnimationProperties();
+
+protected:
+	/*The attack montage*/
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	class UAnimMontage* MeleeAttackMontage;
+ 
+ 
+	/*True if the character can perform a second attack*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bAcceptsSecondAttackInput;
+ 
+	/*Ture if the character can perform a third attack*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bAcceptsThirdAttackInput;
+ 
+public:
+	/*Determines which attack animation will be played*/
+	void Attack();
 };

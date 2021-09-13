@@ -4,19 +4,22 @@
 
 // - Main
 UMyAnimInstance::UMyAnimInstance() {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Constructor = True"));
     //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Updating:  %d"), bIsFalling));
 }
 
 void UMyAnimInstance::UpdateAnimationProperties() {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("UpdateAnimation = True"));
-    // //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ANIM - Updating = True"));
-    APawn *owner = TryGetPawnOwner();
-    if (owner != NULL) {
+    if (TryGetPawnOwner() != NULL) {
         //Update our falling property
-        bIsFalling = owner->GetMovementComponent()->IsFalling();
+        bIsFalling = TryGetPawnOwner()->GetMovementComponent()->IsFalling();
 
         //Update our movement speed
-        MovementSpeed = owner->GetVelocity().Size();
+        MovementSpeed = TryGetPawnOwner()->GetVelocity().Size();
     }
+}
+
+
+
+void UMyAnimInstance::Attack(){
+    //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Attack Moves")));
+
 }

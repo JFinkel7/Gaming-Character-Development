@@ -74,7 +74,12 @@ void ACharacterDevelopmentCharacter::BeginPlay() {
     wand->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
 }
 
-//=============================================================================================================
+//=============================================[Punching]=====================================================
+void ACharacterDevelopmentCharacter::OnPunch(){
+
+}
+
+//=============================================[Firing]=====================================================
 void ACharacterDevelopmentCharacter::OnFire() {
     UWorld *const World = GetWorld();
     if (World != nullptr) {

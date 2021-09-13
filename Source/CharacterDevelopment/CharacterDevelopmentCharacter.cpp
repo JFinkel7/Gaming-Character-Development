@@ -83,6 +83,7 @@ void ACharacterDevelopmentCharacter::OnPunch(){
 void ACharacterDevelopmentCharacter::OnFire() {
     UWorld *const World = GetWorld();
     if (World != nullptr) {
+        GetMesh()->PlayAnimation(MyAnimation, false);
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Shot Fired"));
         FActorSpawnParameters ActorSpawnParams;
         ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;

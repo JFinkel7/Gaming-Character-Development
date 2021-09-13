@@ -35,9 +35,15 @@ class ACharacterDevelopmentCharacter : public ACharacter {
     class USceneComponent *shootingLocation;
 
 public:
+	//! @brief: Plays a Montage Animation 
     UPROPERTY(EditAnywhere)
     class UAnimMontage *Montage;
 
+ 	//! @brief: Plays a Single Animation 
+ 	//! @note: Set this in editor to the animation you want to trigger
+ 	UPROPERTY(EditDefaultsOnly)
+ 	class UAnimationAsset* MyAnimation;
+	 
 public:
     //! @brief: Constructor
     ACharacterDevelopmentCharacter();

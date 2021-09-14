@@ -20,9 +20,9 @@ void UMyAnimInstance::UpdateAnimationProperties() {
 
 void UMyAnimInstance::Punch() {
     // - If Animation is Equiped
-    if (PunchAnimation != NULL) {
-        Montage_Play(PunchAnimation, 1.0f);
-        //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Punch")));
-    }
-    //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Attack Moves")));
+    //if (PunchAnimation != NULL) {
+    //    Montage_Play(PunchAnimation, 1.0f);
+        //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Punch"));
+    //}
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Punching..."));
 }

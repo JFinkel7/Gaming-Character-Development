@@ -8,18 +8,21 @@ UMyAnimInstance::UMyAnimInstance() {
 }
 
 void UMyAnimInstance::UpdateAnimationProperties() {
-    if (TryGetPawnOwner() != NULL) {
+    APawn *owner = TryGetPawnOwner();
+    if (owner != NULL) {
         //Update our falling property
-        bIsFalling = TryGetPawnOwner()->GetMovementComponent()->IsFalling();
+        bIsFalling = owner->GetMovementComponent()->IsFalling();
 
         //Update our movement speed
-        MovementSpeed = TryGetPawnOwner()->GetVelocity().Size();
+        MovementSpeed = owner->GetVelocity().Size();
     }
 }
 
-
-
-void UMyAnimInstance::Attack(){
+void UMyAnimInstance::Punch() {
+    // - If Animation is Equiped
+    if (PunchAnimation != NULL) {
+        Montage_Play(PunchAnimation, 1.0f);
+        //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Punch")));
+    }
     //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Attack Moves")));
-
 }

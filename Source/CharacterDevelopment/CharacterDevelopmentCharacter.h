@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 //
 #include "Animation/AnimSequence.h"
+#include "MyAnimInstance.h"
 #include "DrawDebugHelpers.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "FireProjectile.h"
@@ -35,15 +36,13 @@ class ACharacterDevelopmentCharacter : public ACharacter {
     class USceneComponent *shootingLocation;
 
 public:
-	//! @brief: Plays a Montage Animation 
-	/** AnimMontage to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation;
+    // // This is in Character.h
+	// //! @brief: Plays a Montage Animation 
+	// /** AnimMontage to play each time we fire */
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	// class UAnimMontage* FireAnimation;
 
- 	//! @brief: Plays a Single Animation 
- 	//! @note: Set this in editor to the animation you want to trigger
- 	UPROPERTY(EditDefaultsOnly)
- 	class UAnimationAsset* MyAnimation;
+
 	 
 public:
     //! @brief: Constructor

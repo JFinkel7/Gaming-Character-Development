@@ -31,20 +31,14 @@ protected:
     void UpdateAnimationProperties();
 
 protected:
-	/*The attack montage*/
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	class UAnimMontage* MeleeAttackMontage;
+    // This is in Character.h
+	//! @brief: Plays a Montage Animation 
+	/** AnimMontage to play each time we fire */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UAnimMontage* PunchAnimation;
  
- 
-	/*True if the character can perform a second attack*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	bool bAcceptsSecondAttackInput;
- 
-	/*Ture if the character can perform a third attack*/
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	bool bAcceptsThirdAttackInput;
  
 public:
 	/*Determines which attack animation will be played*/
-	void Attack();
+	void Punch();
 };

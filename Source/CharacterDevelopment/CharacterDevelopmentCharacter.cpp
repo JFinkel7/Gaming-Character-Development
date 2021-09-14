@@ -91,12 +91,11 @@ void ACharacterDevelopmentCharacter::OnFire() {
         const FRotator SpawnRotation = shootingLocation->GetComponentRotation();
         World->SpawnActor<AFireProjectile>(SpawnLocation, SpawnRotation, ActorSpawnParams);
 
+        // -- Animation
         class UMyAnimInstance *AnimInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
-        //UMyAnimInstance * AnimInstance = GetMesh()->GetAnimInstance();
-        //UAnimInstance *AnimInstance = GetMesh()->GetAnimInstance();
         if (AnimInstance != nullptr) {
             GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("You are hitting: %s"), *AnimInstance->GetName()));
-            AnimInstance->Punch();
+            //AnimInstance->Punch();
 
         } else
             GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("UMyAnimInstance = NULL"));

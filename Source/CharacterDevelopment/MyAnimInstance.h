@@ -26,6 +26,11 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     float MovementSpeed;
 
+
+
+     //! @brief: Updates Animation | Equal to Tick() Method
+    //virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+    
     //! @brief: Updates the above properties
     UFUNCTION(BlueprintCallable, Category = "UpdateAnimationProperties")
     void UpdateAnimationProperties();

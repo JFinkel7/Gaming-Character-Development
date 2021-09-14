@@ -36,8 +36,9 @@ class ACharacterDevelopmentCharacter : public ACharacter {
 
 public:
 	//! @brief: Plays a Montage Animation 
-    UPROPERTY(EditAnywhere)
-    class UAnimMontage *Montage;
+	/** AnimMontage to play each time we fire */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UAnimMontage* FireAnimation;
 
  	//! @brief: Plays a Single Animation 
  	//! @note: Set this in editor to the animation you want to trigger

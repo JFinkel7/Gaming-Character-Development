@@ -70,13 +70,14 @@ void ACharacterDevelopmentCharacter::BeginPlay() {
     Super::BeginPlay();
     // - Character Socket
     const FAttachmentTransformRules RULE = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
-    wand->AttachToComponent(GetMesh(), RULE, TEXT("RightHand"));
-    wand->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
+    if (wand != nullptr) {
+        wand->AttachToComponent(GetMesh(), RULE, TEXT("RightHand"));
+        wand->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
+    }
 }
 
 //=============================================[Punching]=====================================================
-void ACharacterDevelopmentCharacter::OnPunch(){
-    
+void ACharacterDevelopmentCharacter::OnPunch() {
 }
 
 //=============================================[Firing]=====================================================
@@ -90,6 +91,16 @@ void ACharacterDevelopmentCharacter::OnFire() {
         const FVector SpawnLocation = shootingLocation->GetComponentLocation();
         const FRotator SpawnRotation = shootingLocation->GetComponentRotation();
         World->SpawnActor<AFireProjectile>(SpawnLocation, SpawnRotation, ActorSpawnParams);
+
+        //
+        // try and play a firing animation if specified
+        if (FireAnimation != nullptr) { // - X
+            // Get the animation object for the arms mesh
+            UAnimInstance *AnimInstance = GetMesh()->GetAnimInstance();
+            if (AnimInstance != nullptr) {
+                AnimInstance->Montage_Play(FireAnimation, 1.0f);
+            }
+        }
     }
 }
 
@@ -129,8 +140,6 @@ void ACharacterDevelopmentCharacter::onFireLineTrace() {
         //GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, FString::Printf(TEXT("You are hitting: %s"), *hitActor->GetName()));
     }
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ACharacterDevelopmentCharacter::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) {
